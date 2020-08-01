@@ -17,6 +17,7 @@ import { AdminProductsComponent } from './admin/admin-products/admin-products.co
 import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.component';
 import {Router, RouterModule} from '@angular/router';
 import { LoginComponent } from './login/login.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -43,10 +44,12 @@ import { LoginComponent } from './login/login.component';
         {path: 'shopping-cart', component: ShoppingCartComponent},
         {path: 'check-out', component: CheckOutComponent},
         {path: 'order-success', component: OrderSuccessComponent},
+        {path: 'myorders', component: MyOrdersComponent},
         {path: 'login', component: LoginComponent},
         {path: 'admin/products', component: AdminProductsComponent},
         {path: 'admin/orders', component: AdminOrdersComponent},
-        ])
+        ]),
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
