@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { Observable } from 'rxjs';
+import {Observable, of} from 'rxjs';
 import { User } from 'firebase';
 import * as firebase from 'firebase';
 import GoogleAuthProvider = firebase.auth.GoogleAuthProvider;
@@ -30,6 +30,9 @@ export class AuthService {
   }
 
   get AppUser$(): Observable<AppUser> {
-    return this.user$.pipe(switchMap(user => this.userService.getAppUser$(user.uid)));
+    return this.user$.pipe(switchMap(user => {
+      if (user) { return  this.userService.getAppUser$(user.uid); }
+      return of(null);
+    }));
   }
 }
