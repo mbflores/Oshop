@@ -1,3 +1,5 @@
+Practice project from Mosh Hamedani Course at Udemy
+
 # Oshop
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.3.
