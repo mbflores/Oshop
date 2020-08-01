@@ -4,6 +4,9 @@ import { Observable } from 'rxjs';
 import { User } from 'firebase';
 import * as firebase from 'firebase';
 import GoogleAuthProvider = firebase.auth.GoogleAuthProvider;
+import {ActivatedRoute} from '@angular/router';
+import {switchMap} from 'rxjs/operators';
+import {AppUser, UserService} from '../user.service';
 
 
 @Injectable({
@@ -12,7 +15,7 @@ import GoogleAuthProvider = firebase.auth.GoogleAuthProvider;
 export class AuthService {
 
   user$: Observable<User>;
-  constructor(private af: AngularFireAuth) {
+  constructor(private af: AngularFireAuth, private route: ActivatedRoute, private userService: UserService) {
     this.user$ = af.authState;
   }
 
@@ -21,6 +24,12 @@ export class AuthService {
   }
 
   login(): void {
+    const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
+    localStorage.setItem('returnUrl', returnUrl);
     this.af.signInWithPopup(new GoogleAuthProvider());
+  }
+
+  get AppUser$(): Observable<AppUser> {
+    return this.user$.pipe(switchMap(user => this.userService.getAppUser$(user.uid)));
   }
 }
